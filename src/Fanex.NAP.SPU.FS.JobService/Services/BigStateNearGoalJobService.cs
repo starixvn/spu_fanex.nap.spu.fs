@@ -20,7 +20,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         public BigStateNearGoalJobService(
             ISentryClient sentryClient,
             IAppSettings appSettings,
-            IBaseService bigStateNearGoalService, 
+            IBaseService bigStateNearGoalService,
             IFraudCaseServices fraudCaseService)
         {
             this.sentryClient = sentryClient;
@@ -38,7 +38,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
                 if (isActiveFraudCase)
                 {
                     JobRun();
-                }                                
+                }
             }
             catch (System.Exception ex)
             {
@@ -47,15 +47,20 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
                 return Task.FromResult(false);
             }
 
-            return Task.FromResult(true);            
+            return Task.FromResult(true);
         }
 
         private void JobRun()
         {
-            bigStateNearGoalService
-                .CleanResult()
-                .Precondition()
-                .Rule();
+            var result = bigStateNearGoalService
+                 .CleanResult()
+                 .Precondition()
+                 .Rule();
+
+            if(result.ErrorCode != 0)
+            {
+                sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+            }
         }
     }
 }

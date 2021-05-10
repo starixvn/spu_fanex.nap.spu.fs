@@ -13,10 +13,12 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
     public class BigStateNearGoalServices : IBaseService
     {
         private readonly IBigStateNearGoalDataAccess bigStateNearGoalDataAccess;
-        
+
         private IEnumerable<MatchEntity> _matches;
 
         private readonly int waitingTimeInSecond = 2;
+
+        public IEnumerable<MatchEntity> Matches => _matches;
 
         public BigStateNearGoalServices(IBigStateNearGoalDataAccess bigStateNearGoalDataAccess)
         {
@@ -42,36 +44,33 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
             return this;
         }
 
-        public IBaseService Rule()
+        public DataResult Rule()
         {
-            ExecuteBySeparatedThreads();
+            var dataResult = new DataResult
+            {   
+                ErrorCode = -1,
+                ErrorMessage = "Matches is empty."
+            };
 
-            return this;
-        }
-
-        private void ExecuteBySeparatedThreads()
-        {
-            if (_matches == null)
+            if (_matches != null && _matches.Any())
             {
-                return;
-            }
-            foreach (var match in _matches)
-            {
-                Execute(match);
+                foreach (var match in _matches)
+                {
+                    dataResult = Execute(match);
+                }
             }
 
             Thread.Sleep(TimeSpan.FromSeconds(waitingTimeInSecond));
+
+            return dataResult;
         }
 
-        private void Execute(MatchEntity match)
+        private DataResult Execute(MatchEntity match)
         {
             try
             {
-                if(match != null && match.MatchId != 0)
-                {
-                    bigStateNearGoalDataAccess.Rule(match.MatchId.ToString());
-                }
-                
+                return bigStateNearGoalDataAccess.Rule(match.MatchId.ToString());
+
             }
             catch (Exception ex)
             {
@@ -79,7 +78,11 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
                 .AddSection("Data Info", DatabaseInfoGetters.GetDbExceptionInfo(ex))
                 .AddSection("Exception Info", CommonInfoGetters.GetExceptionInfo(ex)).ToString();
 
-                LogService.Error(logMessage);
+                return new DataResult
+                {
+                    ErrorCode = -100,
+                    ErrorMessage = logMessage
+                };
             }
         }
     }
