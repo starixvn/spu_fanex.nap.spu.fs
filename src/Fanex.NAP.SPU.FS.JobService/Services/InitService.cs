@@ -1,10 +1,9 @@
-﻿using Fanex.NAP.SPU.CTS.Features.Accounts;
-using Fanex.NAP.SPU.CTS.Features.BigStateNearGoal;
+﻿using Fanex.NAP.SPU.FS.Features.BigStateNearGoal;
 using Fanex.NAP.SPU.FS.Features.FraudCase;
 using Fanex.NAP.SPU.FS.Shares;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Fanex.NAP.SPU.DCS.JobService.Services
+namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public static class InitService
     {

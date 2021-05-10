@@ -1,11 +1,9 @@
-﻿using Fanex.NAP.SPU.CTS.Features.Accounts;
-using Fanex.NAP.SPU.FS.Features.FraudCase;
+﻿using Fanex.NAP.SPU.FS.Features.FraudCase;
 using Fanex.NAP.SPU.FS.Shares;
 using Sentry;
-using System.Linq;
 using System.Threading.Tasks;
 
-namespace Fanex.NAP.SPU.DCS.JobService.Services
+namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface IBigStateNearGoalJobService
     {

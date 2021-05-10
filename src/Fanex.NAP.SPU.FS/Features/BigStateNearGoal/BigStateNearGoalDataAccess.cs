@@ -1,10 +1,10 @@
 ﻿using Fanex.Data;
 using Fanex.Data.Repository;
-using Fanex.NAP.SPU.CTS.Shares;
 using Fanex.NAP.SPU.FS.Features.BigStateNearGoal.Criteria;
+using Fanex.NAP.SPU.FS.Shares;
 using System.Collections.Generic;
 
-namespace Fanex.NAP.SPU.CTS.Features.BigStateNearGoal
+namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
 {
     public interface IBigStateNearGoalDataAccess
     {

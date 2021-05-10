@@ -1,4 +1,4 @@
-﻿namespace Fanex.NAP.SPU.CTS.Shares
+﻿namespace Fanex.NAP.SPU.FS.Shares    
 {
     public class DataResult
     {

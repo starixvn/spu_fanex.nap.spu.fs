@@ -1,10 +1,10 @@
-﻿using Fanex.NAP.SPU.DCS.JobService.Services;
+﻿using Fanex.NAP.SPU.FS.JobService.Services;
 using Microsoft.AspNetCore.Mvc;
 using Sentry;
 using System;
 using System.Threading.Tasks;
 
-namespace Fanex.NAP.SPU.DCS.JobService.Controllers
+namespace Fanex.NAP.SPU.FS.JobService.Controllers
 {
     [ApiController]
     [Route("api/job")]
