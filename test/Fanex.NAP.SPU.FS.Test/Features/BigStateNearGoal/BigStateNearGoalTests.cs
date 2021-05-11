@@ -10,14 +10,14 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 {
     public class BigStateNearGoalTests
     {
-        private readonly IBaseService baseService;
+        private readonly BigStateNearGoalServices bigStateNearGoalServices;
         private readonly IBigStateNearGoalDataAccess bigStateNearGoalDataAccess;
 
         public BigStateNearGoalTests()
         {
             bigStateNearGoalDataAccess = Substitute.For<IBigStateNearGoalDataAccess>();
 
-            baseService = new BigStateNearGoalServices(bigStateNearGoalDataAccess);
+            bigStateNearGoalServices = new BigStateNearGoalServices(bigStateNearGoalDataAccess);
         }
 
         [Fact]
@@ -40,9 +40,9 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(matchEntity);
 
-            baseService.Precondition();
+            bigStateNearGoalServices.Precondition();
 
-            baseService.Matches.Should().BeEquivalentTo(matchEntity);
+            bigStateNearGoalServices.Matches.Should().BeEquivalentTo(matchEntity);
         }
 
         [Fact]
@@ -50,9 +50,9 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
         {
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(new List<MatchEntity>());
 
-            baseService.Precondition();
+            bigStateNearGoalServices.Precondition();
 
-            baseService.Matches.Should().BeEmpty();
+            bigStateNearGoalServices.Matches.Should().BeEmpty();
         }
 
         [Fact]
@@ -75,9 +75,9 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(matchEntity);
 
-            baseService.Precondition().CleanResult();
+            bigStateNearGoalServices.Precondition().CleanResult();
 
-            baseService.Matches.Should().BeEmpty();
+            bigStateNearGoalServices.Matches.Should().BeEmpty();
         }
 
         [Fact]
@@ -101,14 +101,14 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
             var dataResult = new DataResult { ErrorCode = 0 };
 
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(matchEntity);
-            baseService.Precondition();
+            bigStateNearGoalServices.Precondition();
 
-            foreach (var match in baseService.Matches)
+            foreach (var match in bigStateNearGoalServices.Matches)
             {
                 bigStateNearGoalDataAccess.Rule(match.MatchId.ToString()).Returns(dataResult);
             }
 
-            var result = baseService.Rule();
+            var result = bigStateNearGoalServices.Rule();
 
             result.ErrorCode.Should().Be(0);
         }
@@ -118,7 +118,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
         {
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(new List<MatchEntity>());
 
-            var result = baseService.Rule();
+            var result = bigStateNearGoalServices.Rule();
 
             result.ErrorCode.Should().Be(-1);
         }
@@ -145,14 +145,14 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(matchEntity);
 
-            baseService.Precondition();
+            bigStateNearGoalServices.Precondition();
 
-            foreach(var match in baseService.Matches)
+            foreach(var match in bigStateNearGoalServices.Matches)
             {
                 bigStateNearGoalDataAccess.Rule(match.MatchId.ToString()).Returns(dataResult);
             }            
 
-            var result = baseService.Rule();
+            var result = bigStateNearGoalServices.Rule();
 
             result.Should().BeEquivalentTo(dataResult);
         }

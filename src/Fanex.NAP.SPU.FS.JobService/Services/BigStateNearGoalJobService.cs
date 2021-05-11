@@ -1,5 +1,5 @@
-﻿using Fanex.NAP.SPU.FS.Features.FraudCase;
-using Fanex.NAP.SPU.FS.Shares;
+﻿using Fanex.NAP.SPU.FS.Features.BigStateNearGoal;
+using Fanex.NAP.SPU.FS.Features.FraudCase;
 using Sentry;
 using System.Threading.Tasks;
 
@@ -10,21 +10,22 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         Task<bool> Execute(int fraudCaseId);
 
     }
+
     public class BigStateNearGoalJobService : IBigStateNearGoalJobService
     {
         private readonly ISentryClient sentryClient;
-        private readonly IBaseService bigStateNearGoalService;
+        private readonly BigStateNearGoalServices bigStateNearGoalService;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
 
         public BigStateNearGoalJobService(
             ISentryClient sentryClient,
-            IAppSettings appSettings,
-            IBaseService bigStateNearGoalService,
-            IFraudCaseServices fraudCaseService)
-        {
-            this.sentryClient = sentryClient;
+            IAppSettings appSettings,            
+            IFraudCaseServices fraudCaseService,
+            BigStateNearGoalServices bigStateNearGoalService)
+        {           
             this.bigStateNearGoalService = bigStateNearGoalService;
+            this.sentryClient = sentryClient;
             this.fraudCaseService = fraudCaseService;
             this.appSettings = appSettings;
         }
@@ -57,10 +58,10 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
                  .Precondition()
                  .Rule();
 
-            if(result.ErrorCode != 0)
+            if (result.ErrorCode != 0)
             {
                 sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
             }
-        }
+        }        
     }
 }

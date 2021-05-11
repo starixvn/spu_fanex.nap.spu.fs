@@ -11,14 +11,18 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
     public class JobController : ControllerBase
     {
         private readonly ISentryClient sentryClient;
-        private readonly IBigStateNearGoalJobService bigStateNearGoalJobService;       
+        private readonly IBigStateNearGoalJobService bigStateNearGoalJobService;
+        private readonly ICheckBetJobService checkBetJobService;
 
         public JobController(ISentryClient sentryClient,
-            IBigStateNearGoalJobService bigStateNearGoalJobService)
+            IBigStateNearGoalJobService bigStateNearGoalJobService,
+            ICheckBetJobService checkBetJobService)
         {
             this.sentryClient = sentryClient;
             this.bigStateNearGoalJobService = bigStateNearGoalJobService;
-            
+            this.checkBetJobService = checkBetJobService;
+
+
         }
 
         [HttpPost("bigstateneargoal")]
@@ -28,6 +32,15 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
 
             return await this.bigStateNearGoalJobService.Execute(fraudCaseId);
 
-        }        
+        }
+
+        [HttpPost("checkbet")]
+        public async Task<bool> CheckBet(string jobName, int fraudCaseId)
+        {
+            sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
+
+            return await this.checkBetJobService.Execute(fraudCaseId);
+
+        }
     }
 }

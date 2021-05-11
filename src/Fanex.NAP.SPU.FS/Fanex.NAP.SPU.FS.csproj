@@ -6,6 +6,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Shares\Models\**" />
+    <EmbeddedResource Remove="Shares\Models\**" />
+    <None Remove="Shares\Models\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <AdditionalFiles Include="..\..\.sonarlint\fanex.nap.spu.dcs\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 
@@ -18,7 +24,14 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Shares\Models\" />
+    <Folder Include="Features\CheckBet\Entities\" />
+    <Folder Include="Features\DailyDataCapture\Entities\" />
+    <Folder Include="Features\DelayedGoal\Criteria\" />
+    <Folder Include="Features\DelayedGoal\Entities\" />
+    <Folder Include="Features\FlaggedAccount\Criteria\" />
+    <Folder Include="Features\FlaggedAccount\Entities\" />
+    <Folder Include="Features\ScannedOfficeIP\Criteria\" />
+    <Folder Include="Features\ScannedOfficeIP\Entities\" />
   </ItemGroup>
 
 </Project>

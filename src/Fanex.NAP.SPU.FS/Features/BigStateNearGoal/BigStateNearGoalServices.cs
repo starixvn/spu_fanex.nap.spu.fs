@@ -10,7 +10,7 @@ using System.Threading;
 
 namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
 {
-    public class BigStateNearGoalServices : IBaseService
+    public class BigStateNearGoalServices : BaseService
     {
         private readonly IBigStateNearGoalDataAccess bigStateNearGoalDataAccess;
 
@@ -25,7 +25,8 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
             this.bigStateNearGoalDataAccess = bigStateNearGoalDataAccess;
         }
 
-        public IBaseService CleanResult()
+
+        public override BaseService CleanResult()
         {
             if (_matches == null || !_matches.Any())
             {
@@ -37,14 +38,14 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
             return this;
         }
 
-        public IBaseService Precondition()
+        public override BaseService Precondition()
         {
             _matches = bigStateNearGoalDataAccess.PreCondition<MatchEntity>();
 
             return this;
         }
 
-        public DataResult Rule()
+        public override DataResult Rule()
         {
             var dataResult = new DataResult
             {   

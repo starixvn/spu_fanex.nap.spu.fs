@@ -1,5 +1,6 @@
 using Fanex.Data;
 using Fanex.Data.MySql;
+using Fanex.Data.SqlServer;
 using Fanex.NAP.SPU.FS.JobService.Services;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -87,7 +88,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             DbSettingProviderManager
               .StartNewSession()
               .Use(connections)
-              .WithMySql()
+              .WithSqlServer()
               .UseDefaultDbSettingProvider(resourcePath: "~/App_Data")
               .Run();
         }
