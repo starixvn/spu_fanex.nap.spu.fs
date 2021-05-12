@@ -1,5 +1,4 @@
-﻿using Fanex.NAP.SPU.FS.Features.BigStateNearGoal.Entities;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace Fanex.NAP.SPU.FS.Shares
 {
@@ -15,9 +14,29 @@ namespace Fanex.NAP.SPU.FS.Shares
             return new DataResult();
         }
 
+        public virtual DataResult Rule(int chunkSize)
+        {
+            return new DataResult();
+        }
+
+        public virtual IEnumerable<DataResult> Rules()
+        {
+            return new List<DataResult>();
+        }
+
+        public virtual IEnumerable<DataResult> Rules(int chunkSize)
+        {
+            return new List<DataResult>();
+        }
+
         public virtual BaseService CleanResult()
         {
             return this;
-        }        
+        }
+
+        public virtual BaseService GetFlaggedCustomer(string apiUrl)
+        {
+            return this;
+        }
     }
 }

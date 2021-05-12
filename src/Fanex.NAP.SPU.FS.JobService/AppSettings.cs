@@ -7,18 +7,23 @@ namespace Fanex.NAP.SPU.FS.JobService
     public interface IAppSettings
     {
         int Environment { get; }
+
+        string CustomerEvidenceAPI { get; }
     }
     public class AppSettings : IAppSettings
     {
         private readonly IConfiguration configuration;
 
         private readonly string environment;
+        private readonly string customerEvidenceAPI;
 
         public AppSettings(IConfiguration configuration)
         {
             this.configuration = configuration;
 
             environment = GetValue<string>(nameof(Environment));
+
+            customerEvidenceAPI = GetValue<string>(nameof(CustomerEvidenceAPI));
         }
 
         public int Environment
@@ -37,6 +42,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             }
         }
 
+        public string CustomerEvidenceAPI => customerEvidenceAPI;
 
         public T GetValue<T>(string key)
         {

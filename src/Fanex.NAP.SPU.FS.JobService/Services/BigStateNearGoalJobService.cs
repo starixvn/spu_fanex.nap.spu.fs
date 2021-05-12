@@ -1,6 +1,7 @@
 ﻿using Fanex.NAP.SPU.FS.Features.BigStateNearGoal;
 using Fanex.NAP.SPU.FS.Features.FraudCase;
 using Sentry;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace Fanex.NAP.SPU.FS.JobService.Services
@@ -20,10 +21,10 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 
         public BigStateNearGoalJobService(
             ISentryClient sentryClient,
-            IAppSettings appSettings,            
+            IAppSettings appSettings,
             IFraudCaseServices fraudCaseService,
             BigStateNearGoalServices bigStateNearGoalService)
-        {           
+        {
             this.bigStateNearGoalService = bigStateNearGoalService;
             this.sentryClient = sentryClient;
             this.fraudCaseService = fraudCaseService;
@@ -53,15 +54,21 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 
         private void JobRun()
         {
-            var result = bigStateNearGoalService
+            var results = bigStateNearGoalService
                  .CleanResult()
                  .Precondition()
-                 .Rule();
+                 .Rules();
 
-            if (result.ErrorCode != 0)
+            if (results != null && results.Any())
             {
-                sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                foreach (var result in results.Distinct())
+                {
+                    if (result.ErrorCode != 0)
+                    {
+                        sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                    }
+                }
             }
-        }        
+        }
     }
 }

@@ -8,7 +8,7 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
 {
     public interface IBigStateNearGoalDataAccess
     {
-        IEnumerable<Match> PreCondition<Match>();
+        IEnumerable<T> PreCondition<T>();
 
         DataResult Rule(string matchIds);
 
@@ -23,13 +23,13 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
             repository = new DynamicRepository();
         }
 
-        public IEnumerable<Match> PreCondition<Match>()
+        public IEnumerable<T> PreCondition<T>()
         {
             var criteria = new BigStakeNearGoalPreconditionCriteria();
 
             using (var db = ObjectDbFactory.CreateInstance(criteria.GetSettingKey()))
             {
-                return db.Query<Match>(criteria);
+                return db.Query<T>(criteria);
             }
         }
 

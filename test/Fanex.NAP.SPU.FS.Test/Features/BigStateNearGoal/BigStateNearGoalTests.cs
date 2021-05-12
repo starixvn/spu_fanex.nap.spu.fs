@@ -1,6 +1,6 @@
 ﻿using Fanex.NAP.SPU.FS.Features.BigStateNearGoal;
-using Fanex.NAP.SPU.FS.Features.BigStateNearGoal.Entities;
 using Fanex.NAP.SPU.FS.Shares;
+using Fanex.NAP.SPU.FS.Shares.Entities;
 using FluentAssertions;
 using NSubstitute;
 using System.Collections.Generic;
@@ -42,7 +42,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalServices.Precondition();
 
-            bigStateNearGoalServices.Matches.Should().BeEquivalentTo(matchEntity);
+            bigStateNearGoalServices.MatchList.Should().BeEquivalentTo(matchEntity);
         }
 
         [Fact]
@@ -52,7 +52,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalServices.Precondition();
 
-            bigStateNearGoalServices.Matches.Should().BeEmpty();
+            bigStateNearGoalServices.MatchList.Should().BeEmpty();
         }
 
         [Fact]
@@ -77,7 +77,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalServices.Precondition().CleanResult();
 
-            bigStateNearGoalServices.Matches.Should().BeEmpty();
+            bigStateNearGoalServices.MatchList.Should().BeEmpty();
         }
 
         [Fact]
@@ -103,7 +103,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(matchEntity);
             bigStateNearGoalServices.Precondition();
 
-            foreach (var match in bigStateNearGoalServices.Matches)
+            foreach (var match in bigStateNearGoalServices.MatchList)
             {
                 bigStateNearGoalDataAccess.Rule(match.MatchId.ToString()).Returns(dataResult);
             }
@@ -147,7 +147,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
 
             bigStateNearGoalServices.Precondition();
 
-            foreach(var match in bigStateNearGoalServices.Matches)
+            foreach(var match in bigStateNearGoalServices.MatchList)
             {
                 bigStateNearGoalDataAccess.Rule(match.MatchId.ToString()).Returns(dataResult);
             }            

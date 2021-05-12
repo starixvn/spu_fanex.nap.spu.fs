@@ -13,15 +13,20 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         private readonly ISentryClient sentryClient;
         private readonly IBigStateNearGoalJobService bigStateNearGoalJobService;
         private readonly ICheckBetJobService checkBetJobService;
+        private readonly IDelayedGoalJobService delayedGoalJobService;
+        private readonly IFlaggedAccountJobService flaggedAccountJobService;
 
         public JobController(ISentryClient sentryClient,
             IBigStateNearGoalJobService bigStateNearGoalJobService,
-            ICheckBetJobService checkBetJobService)
+            ICheckBetJobService checkBetJobService,
+            IDelayedGoalJobService delayedGoalJobService,
+            IFlaggedAccountJobService flaggedAccountJobService)
         {
             this.sentryClient = sentryClient;
             this.bigStateNearGoalJobService = bigStateNearGoalJobService;
             this.checkBetJobService = checkBetJobService;
-
+            this.delayedGoalJobService = delayedGoalJobService;
+            this.flaggedAccountJobService = flaggedAccountJobService;
 
         }
 
@@ -40,6 +45,24 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
             return await this.checkBetJobService.Execute(fraudCaseId);
+
+        }
+
+        [HttpPost("delayedgoal")]
+        public async Task<bool> DelayedGoal(string jobName, int fraudCaseId)
+        {
+            sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
+
+            return await this.delayedGoalJobService.Execute(fraudCaseId, 100);
+
+        }
+
+        [HttpPost("flaggedaccount")]
+        public async Task<bool> FlaggedAccount(string jobName, int fraudCaseId)
+        {
+            sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
+
+            return await this.flaggedAccountJobService.Execute(fraudCaseId, 100);
 
         }
     }

@@ -1,8 +1,7 @@
-﻿using Fanex.Logging;
-using Fanex.Logging.Extensions;
+﻿using Fanex.Logging.Extensions;
 using Fanex.Logging.Extensions.Database;
-using Fanex.NAP.SPU.FS.Features.BigStateNearGoal.Entities;
 using Fanex.NAP.SPU.FS.Shares;
+using Fanex.NAP.SPU.FS.Shares.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,11 +13,11 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
     {
         private readonly IBigStateNearGoalDataAccess bigStateNearGoalDataAccess;
 
-        private IEnumerable<MatchEntity> _matches;
+        private IEnumerable<MatchEntity> _matchList;
 
         private readonly int waitingTimeInSecond = 2;
 
-        public IEnumerable<MatchEntity> Matches => _matches;
+        public IEnumerable<MatchEntity> MatchList => _matchList;
 
         public BigStateNearGoalServices(IBigStateNearGoalDataAccess bigStateNearGoalDataAccess)
         {
@@ -28,44 +27,45 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
 
         public override BaseService CleanResult()
         {
-            if (_matches == null || !_matches.Any())
+            if (_matchList == null || !_matchList.Any())
             {
                 return this;
             }
 
-            _matches = Enumerable.Empty<MatchEntity>();
+            _matchList = Enumerable.Empty<MatchEntity>();
 
             return this;
         }
 
         public override BaseService Precondition()
         {
-            _matches = bigStateNearGoalDataAccess.PreCondition<MatchEntity>();
+            _matchList = bigStateNearGoalDataAccess.PreCondition<MatchEntity>();
 
             return this;
         }
 
-        public override DataResult Rule()
+        public override IEnumerable<DataResult> Rules()
         {
-            var dataResult = new DataResult
-            {   
-                ErrorCode = -1,
-                ErrorMessage = "Matches is empty."
-            };
+            var dataResults = new List<DataResult>();
 
-            if (_matches != null && _matches.Any())
+            if (_matchList != null && _matchList.Any())
             {
-                foreach (var match in _matches)
+                foreach (var match in _matchList)
                 {
-                    dataResult = Execute(match);
+                    var dataResult = Execute(match);
+
+                    if(dataResult.ErrorCode != 0)
+                    {
+                        dataResults.Add(dataResult);
+                    }
                 }
             }
 
             Thread.Sleep(TimeSpan.FromSeconds(waitingTimeInSecond));
 
-            return dataResult;
+            return dataResults;
         }
-
+       
         private DataResult Execute(MatchEntity match)
         {
             try
