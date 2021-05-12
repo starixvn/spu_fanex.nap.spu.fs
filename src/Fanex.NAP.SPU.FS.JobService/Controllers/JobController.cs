@@ -15,19 +15,24 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         private readonly ICheckBetJobService checkBetJobService;
         private readonly IDelayedGoalJobService delayedGoalJobService;
         private readonly IFlaggedAccountJobService flaggedAccountJobService;
+        private readonly IDailyCaptureDataJobService dailyCaptureDataJobService;
+        private readonly IScannedOfficeIPJobService scannedOfficeIpJobService;
 
         public JobController(ISentryClient sentryClient,
             IBigStateNearGoalJobService bigStateNearGoalJobService,
             ICheckBetJobService checkBetJobService,
             IDelayedGoalJobService delayedGoalJobService,
-            IFlaggedAccountJobService flaggedAccountJobService)
+            IFlaggedAccountJobService flaggedAccountJobService,
+            IDailyCaptureDataJobService dailyCaptureDataJobService,
+            IScannedOfficeIPJobService scannedOfficeIpJobService)
         {
             this.sentryClient = sentryClient;
             this.bigStateNearGoalJobService = bigStateNearGoalJobService;
             this.checkBetJobService = checkBetJobService;
             this.delayedGoalJobService = delayedGoalJobService;
             this.flaggedAccountJobService = flaggedAccountJobService;
-
+            this.dailyCaptureDataJobService = dailyCaptureDataJobService;
+            this.scannedOfficeIpJobService = scannedOfficeIpJobService;
         }
 
         [HttpPost("bigstateneargoal")]
@@ -63,6 +68,24 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
             return await this.flaggedAccountJobService.Execute(fraudCaseId, 100);
+
+        }
+
+        [HttpPost("dailycapturedata")]
+        public async Task<bool> DailyCaptureData(string jobName, int fraudCaseId)
+        {
+            sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
+
+            return await this.dailyCaptureDataJobService.Execute(fraudCaseId);
+
+        }
+
+        [HttpPost("scannedofficeip")]
+        public async Task<bool> ScannedOfficeIp(string jobName, int fraudCaseId)
+        {
+            sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
+
+            return await this.scannedOfficeIpJobService.Execute(fraudCaseId, 100);
 
         }
     }

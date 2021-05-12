@@ -4,6 +4,7 @@ using Fanex.NAP.SPU.FS.Features.DailyDataCapture;
 using Fanex.NAP.SPU.FS.Features.DelayedGoal;
 using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
 using Fanex.NAP.SPU.FS.Features.FraudCase;
+using Fanex.NAP.SPU.FS.Features.ScannedOfficeIP;
 using Fanex.NAP.SPU.FS.Shares;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -18,6 +19,8 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             RegisterCheckBetService(services);
             RegisterDelayedGoalService(services);
             RegisterFlaggedAccountService(services);
+            RegisterDailyCaptureService(services);
+            RegisterScannedOfficeIpService(services);
         }
 
         private static void RegisterBigStateNearGoalService(this IServiceCollection services)
@@ -48,12 +51,19 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             services.AddSingleton<IFlaggedAccountJobService, FlaggedAccountJobService>();
         }
 
-        //private static void RegisterDailyCaptureService(this IServiceCollection services)
-        //{
-        //    services.AddSingleton<IDailyDataCaptureDataAccess, DailyDataCaptureDataAccess>();
-        //    services.AddSingleton<DailyDataCaptureServices>();
-        //    services.AddSingleton<IFlaggedAccountJobService, FlaggedAccountJobService>();
-        //}
+        private static void RegisterDailyCaptureService(this IServiceCollection services)
+        {
+            services.AddSingleton<IDailyDataCaptureDataAccess, DailyDataCaptureDataAccess>();
+            services.AddSingleton<DailyDataCaptureServices>();
+            services.AddSingleton<IDailyCaptureDataJobService, DailyCaptureDataJobService>();
+        }
+
+        private static void RegisterScannedOfficeIpService(this IServiceCollection services)
+        {
+            services.AddSingleton<IScannedOfficeIPDataAccess, ScannedOfficeIPDataAccess>();
+            services.AddSingleton<ScannedOfficeIPServices>();
+            services.AddSingleton<IScannedOfficeIPJobService, ScannedOfficeIPJobService>();
+        }
 
         private static void RegisterBaseServices(this IServiceCollection services)
         {

@@ -27,7 +27,6 @@
   <ItemGroup>
     <Folder Include="Features\CheckBet\Entities\" />
     <Folder Include="Features\DailyDataCapture\Entities\" />
-    <Folder Include="Features\ScannedOfficeIP\Criteria\" />
     <Folder Include="Features\ScannedOfficeIP\Entities\" />
   </ItemGroup>
 
