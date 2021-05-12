@@ -2,6 +2,7 @@ FROM registry.nexdev.net:5050/docker/dotnet/core/sdk:5.0.102-ca-patch-buster-sli
 
 WORKDIR /src
 
+COPY ["./src/Fanex.NAP.SPU.FS/Fanex.NAP.SPU.FS.csproj", "Fanex.NAP.SPU.FS/"]
 COPY ["./src/Fanex.NAP.SPU.FS.JobService/Fanex.NAP.SPU.FS.JobService.csproj", "Fanex.NAP.SPU.FS.JobService/"]
 
 WORKDIR "/src/Fanex.NAP.SPU.FS.JobService"
