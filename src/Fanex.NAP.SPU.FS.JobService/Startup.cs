@@ -1,5 +1,4 @@
 using Fanex.Data;
-using Fanex.Data.MySql;
 using Fanex.Data.SqlServer;
 using Fanex.NAP.SPU.FS.JobService.Services;
 using HealthChecks.UI.Client;
@@ -39,7 +38,7 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fanex.NAP.SPU.DCS.JobService", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fanex.NAP.SPU.FS.JobService", Version = "v1" });
             });
 
             services.RegisterService();            
@@ -56,7 +55,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             }
 
             app.UseSwagger();
-            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fanex.NAP.SPU.CTS.JobService v1"));
+            app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Fanex.NAP.SPU.FS.JobService v1"));
 
             app.UseRouting();
 
