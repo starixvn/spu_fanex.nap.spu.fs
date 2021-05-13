@@ -8,7 +8,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface IBigStateNearGoalJobService
     {
-        Task<bool> Execute(int fraudCaseId);
+        Task<bool> Execute();
 
     }
 
@@ -18,6 +18,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         private readonly BigStateNearGoalServices bigStateNearGoalService;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
+        private readonly int fraudCaseId = 1;
 
         public BigStateNearGoalJobService(
             ISentryClient sentryClient,
@@ -31,7 +32,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             this.appSettings = appSettings;
         }
 
-        public Task<bool> Execute(int fraudCaseId)
+        public Task<bool> Execute()
         {
             try
             {

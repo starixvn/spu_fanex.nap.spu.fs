@@ -7,7 +7,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface IDailyCaptureDataJobService
     {
-        Task<bool> Execute(int fraudCaseId);
+        Task<bool> Execute();
     }
 
     public class DailyCaptureDataJobService: IDailyCaptureDataJobService
@@ -16,6 +16,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         private readonly DailyDataCaptureServices dailyDataCaptureServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
+        private readonly int fraudCaseId = 4;
 
         public DailyCaptureDataJobService(
             ISentryClient sentryClient,
@@ -29,7 +30,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             this.appSettings = appSettings;
         }
 
-        public Task<bool> Execute(int fraudCaseId)
+        public Task<bool> Execute()
         {
             try
             {

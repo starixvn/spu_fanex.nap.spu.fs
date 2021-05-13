@@ -7,7 +7,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface ICheckBetJobService
     {
-        Task<bool> Execute(int fraudCaseId);
+        Task<bool> Execute();
     }
 
     public class CheckBetJobService: ICheckBetJobService
@@ -17,6 +17,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         private readonly IAppSettings appSettings;
 
         private readonly CheckBetServices checkbetService;
+        private readonly int fraudCaseId = 3;
 
         public CheckBetJobService(
             ISentryClient sentryClient,
@@ -30,7 +31,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             this.appSettings = appSettings;
         }
 
-        public Task<bool> Execute(int fraudCaseId)
+        public Task<bool> Execute()
         {
             try
             {

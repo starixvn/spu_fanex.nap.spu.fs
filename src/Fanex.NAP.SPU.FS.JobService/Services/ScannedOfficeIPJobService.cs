@@ -8,7 +8,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface IScannedOfficeIPJobService
     {
-        Task<bool> Execute(int fraudCaseId, int chunkSize);
+        Task<bool> Execute(int chunkSize);
     }
 
     public class ScannedOfficeIPJobService: IScannedOfficeIPJobService
@@ -17,6 +17,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         private readonly ScannedOfficeIPServices scannedOfficeIPServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
+        private readonly int fraudCaseId = 2;
 
         public ScannedOfficeIPJobService(
             ISentryClient sentryClient,
@@ -30,7 +31,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             this.appSettings = appSettings;
         }
 
-        public Task<bool> Execute(int fraudCaseId, int chunkSize)
+        public Task<bool> Execute(int chunkSize)
         {
             try
             {

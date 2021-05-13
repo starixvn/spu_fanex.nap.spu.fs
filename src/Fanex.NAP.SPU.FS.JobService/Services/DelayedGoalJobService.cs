@@ -10,7 +10,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface IDelayedGoalJobService
     {
-        Task<bool> Execute(int fraudCaseId, int chunkSize);
+        Task<bool> Execute(int chunkSize);
     }
 
     public class DelayedGoalJobService : IDelayedGoalJobService
@@ -20,6 +20,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         private readonly DelayedGoalServices delayedGoalServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
+        private readonly int fraudCaseId = 8;
 
         public DelayedGoalJobService(
             ISentryClient sentryClient,
@@ -33,7 +34,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             this.appSettings = appSettings;
         }
 
-        public Task<bool> Execute(int fraudCaseId, int chunkSize)
+        public Task<bool> Execute(int chunkSize)
         {
             try
             {

@@ -9,7 +9,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 {
     public interface IFlaggedAccountJobService
     {
-        Task<bool> Execute(int fraudCaseId, int chunkSize);
+        Task<bool> Execute(int chunkSize);
     }
 
     public class FlaggedAccountJobService : IFlaggedAccountJobService
@@ -18,6 +18,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         private readonly FlaggedAccountServices flaggedAccountServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
+        private readonly int fraudCaseId = 6;
 
         public FlaggedAccountJobService(
             ISentryClient sentryClient,
@@ -31,7 +32,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             this.appSettings = appSettings;
         }
 
-        public Task<bool> Execute(int fraudCaseId, int chunkSize)
+        public Task<bool> Execute(int chunkSize)
         {
             try
             {
@@ -54,9 +55,9 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 
         private void JobRun(int chunkSize)
         {
-            var results = flaggedAccountServices                
+            var results = flaggedAccountServices
                  .CleanResult()
-                 .Precondition()     
+                 .Precondition()
                  .GetFlaggedCustomer(appSettings.CustomerEvidenceAPI)
                  .Rules(chunkSize);
 

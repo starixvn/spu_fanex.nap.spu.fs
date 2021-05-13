@@ -17,7 +17,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         private readonly IFlaggedAccountJobService flaggedAccountJobService;
         private readonly IDailyCaptureDataJobService dailyCaptureDataJobService;
         private readonly IScannedOfficeIPJobService scannedOfficeIpJobService;
-
+        private readonly int chunkSize = 100;
         public JobController(ISentryClient sentryClient,
             IBigStateNearGoalJobService bigStateNearGoalJobService,
             ICheckBetJobService checkBetJobService,
@@ -36,56 +36,56 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         }
 
         [HttpPost("bigstateneargoal")]
-        public async Task<bool> BigStateNearGoal(string jobName, int fraudCaseId)
+        public async Task<bool> BigStateNearGoal(string jobName)
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await this.bigStateNearGoalJobService.Execute(fraudCaseId);
+            return await this.bigStateNearGoalJobService.Execute();
 
         }
 
         [HttpPost("checkbet")]
-        public async Task<bool> CheckBet(string jobName, int fraudCaseId)
+        public async Task<bool> CheckBet(string jobName)
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await this.checkBetJobService.Execute(fraudCaseId);
+            return await this.checkBetJobService.Execute();
 
         }
 
         [HttpPost("delayedgoal")]
-        public async Task<bool> DelayedGoal(string jobName, int fraudCaseId)
+        public async Task<bool> DelayedGoal(string jobName)
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await this.delayedGoalJobService.Execute(fraudCaseId, 100);
+            return await this.delayedGoalJobService.Execute(100);
 
         }
 
         [HttpPost("flaggedaccount")]
-        public async Task<bool> FlaggedAccount(string jobName, int fraudCaseId)
+        public async Task<bool> FlaggedAccount(string jobName)
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await this.flaggedAccountJobService.Execute(fraudCaseId, 100);
+            return await this.flaggedAccountJobService.Execute(100);
 
         }
 
         [HttpPost("dailycapturedata")]
-        public async Task<bool> DailyCaptureData(string jobName, int fraudCaseId)
+        public async Task<bool> DailyCaptureData(string jobName)
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await this.dailyCaptureDataJobService.Execute(fraudCaseId);
+            return await this.dailyCaptureDataJobService.Execute();
 
         }
 
         [HttpPost("scannedofficeip")]
-        public async Task<bool> ScannedOfficeIp(string jobName, int fraudCaseId)
+        public async Task<bool> ScannedOfficeIp(string jobName)
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await this.scannedOfficeIpJobService.Execute(fraudCaseId, 100);
+            return await this.scannedOfficeIpJobService.Execute(100);
 
         }
     }
