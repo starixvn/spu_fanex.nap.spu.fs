@@ -32,8 +32,7 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             services.AddControllers();
             services
-               .AddHealthChecks()               
-               .AddDiskStorageHealthCheck(setup => { DriveInfo.GetDrives(); });
+               .AddHealthChecks();
 
 
             services.AddSwaggerGen(c =>
