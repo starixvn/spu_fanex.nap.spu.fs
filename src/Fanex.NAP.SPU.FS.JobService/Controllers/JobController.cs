@@ -41,10 +41,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            return await Task.FromResult(true);
-
-            // return await this.bigStateNearGoalJobService.Execute();
-
+            return await this.bigStateNearGoalJobService.Execute();
         }
 
         [HttpPost("checkbet")]
@@ -52,10 +49,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            //return await this.checkBetJobService.Execute();
-
-            return await Task.FromResult(true);
-
+            return await this.checkBetJobService.Execute();
         }
 
         [HttpPost("delayedgoal")]
@@ -63,10 +57,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            //return await this.delayedGoalJobService.Execute(chunkSize);
-
-            return await Task.FromResult(true);
-
+            return await this.delayedGoalJobService.Execute(chunkSize);
         }
 
         [HttpPost("flaggedaccount")]
@@ -74,10 +65,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            // return await this.flaggedAccountJobService.Execute(chunkSize);
-
-            return await Task.FromResult(true);
-
+            return await this.flaggedAccountJobService.Execute(chunkSize);
         }
 
         [HttpPost("dailycapturedata")]
@@ -85,10 +73,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            //return await this.dailyCaptureDataJobService.Execute();
-
-            return await Task.FromResult(true);
-
+            return await this.dailyCaptureDataJobService.Execute();
         }
 
         [HttpPost("scannedofficeip")]
@@ -96,9 +81,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Controllers
         {
             sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
 
-            //return await this.scannedOfficeIpJobService.Execute(chunkSize);
-
-            return await Task.FromResult(true);
+            return await this.scannedOfficeIpJobService.Execute(chunkSize);
         }
     }
 }

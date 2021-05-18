@@ -1,5 +1,6 @@
 using Fanex.Data;
 using Fanex.Data.SqlServer;
+using Fanex.NAP.SPU.FS.JobService.HealthCheck;
 using Fanex.NAP.SPU.FS.JobService.Services;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -7,9 +8,9 @@ using Microsoft.AspNetCore.Diagnostics.HealthChecks;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
-using System.IO;
 using System.Linq;
 
 namespace Fanex.NAP.SPU.FS.JobService
@@ -31,18 +32,17 @@ namespace Fanex.NAP.SPU.FS.JobService
             services.AddSingleton<IAppSettings>(appSettings);
 
             services.AddControllers();
-            services
-               .AddHealthChecks();
-
 
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fanex.NAP.SPU.FS.JobService", Version = "v1" });
             });
 
-            services.RegisterService();            
+            services.RegisterService();
 
             FanexDataConfig();
+
+            AddHealthCheckConnection(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -83,12 +83,39 @@ namespace Fanex.NAP.SPU.FS.JobService
                                            y => new ConnectionConfiguration(y.GetValue<string>("Name"), y.GetValue<string>("ConnectionString"), y.GetValue<string>("ProviderName"))
                                    );
 
+
+
             DbSettingProviderManager
               .StartNewSession()
               .Use(connections)
               .WithSqlServer()
               .UseDefaultDbSettingProvider(resourcePath: "~/App_Data")
-              .Run();
+              .Run();                        
+        }
+
+        private void AddHealthCheckConnection(IServiceCollection services)
+        {
+            var healthCheck = services.AddHealthChecks();
+
+            Configuration
+                        .GetSection("Connections")
+                        .GetChildren()
+                        .ToList()
+                        .ForEach(
+                                x =>
+                                {
+                                    var aliasName = x.GetValue<string>("Name");
+                                    if (!string.IsNullOrWhiteSpace(aliasName))
+                                    {
+                                        var connection = DbSettingProviderManager.GetCurrentConnectionStringProvider().GetConnectionString(aliasName, false);
+
+                                        //healthCheck.AddCheck(aliasName, new SqlConnectionHealthCheck(connection), HealthStatus.Unhealthy, new[] { aliasName });
+                                        healthCheck.AddSqlServer(connection);
+                                    }
+                                }
+                        );
+
+
         }
     }
 }
