@@ -1,0 +1,5 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="SonarQube - Fanex.NAP.SPU.FS Nexcel CSharp" ToolsVersion="16.0">
+  <Include Path="..\..\.sonarlint\fanex.nap.spu.dcscsharp.ruleset" Action="Default" />
+  <Include Path="..\..\.sonarlint\fanex.nap.spu.fscsharp.ruleset" Action="Default" />
+</RuleSet>

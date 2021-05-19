@@ -2,7 +2,7 @@
 
   <PropertyGroup>
     <TargetFramework>net5.0</TargetFramework>
-    <CodeAnalysisRuleSet>..\..\.sonarlint\fanex.nap.spu.dcscsharp.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>Fanex.NAP.SPU.FS.JobService.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
 
   <ItemGroup>
@@ -13,7 +13,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <AdditionalFiles Include="..\..\.sonarlint\fanex.nap.spu.dcs\CSharp\SonarLint.xml" Link="SonarLint.xml" />
+    <AdditionalFiles Include="..\..\.sonarlint\fanex.nap.spu.fs\CSharp\SonarLint.xml" Link="SonarLint.xml" />
   </ItemGroup>
 
   <ItemGroup>
