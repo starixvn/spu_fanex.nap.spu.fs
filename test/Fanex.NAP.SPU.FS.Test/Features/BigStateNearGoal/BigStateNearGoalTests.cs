@@ -81,7 +81,7 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
         }
 
         [Fact]
-        public void ExecuteRule_Successful_ReturnDataResult()
+        public void ExecuteRule_WithMatch_Successful_ReturnDataResult()
         {
             var matchEntity = new List<MatchEntity> {
                 new MatchEntity
@@ -108,19 +108,19 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
                 bigStateNearGoalDataAccess.Rule(match.MatchId.ToString()).Returns(dataResult);
             }
 
-            var result = bigStateNearGoalServices.Rule();
+            var results = bigStateNearGoalServices.Rules();
 
-            result.ErrorCode.Should().Be(0);
+            results.Should().HaveCount(0);
         }
 
         [Fact]
-        public void ExecuteRule_Failed_ReturnDataResult()
+        public void ExecuteRule_WithNullMatch_Successful_ReturnDataResult()
         {
             bigStateNearGoalDataAccess.PreCondition<MatchEntity>().Returns(new List<MatchEntity>());
 
-            var result = bigStateNearGoalServices.Rule();
+            var results = bigStateNearGoalServices.Rules();
 
-            result.ErrorCode.Should().Be(-1);
+            results.Should().HaveCount(0);       
         }
 
         [Fact]
@@ -152,9 +152,9 @@ namespace Fanex.NAP.SPU.FS.Tests.Features.BigStateNearGoal
                 bigStateNearGoalDataAccess.Rule(match.MatchId.ToString()).Returns(dataResult);
             }            
 
-            var result = bigStateNearGoalServices.Rule();
+            var results = bigStateNearGoalServices.Rules();
 
-            result.Should().BeEquivalentTo(dataResult);
+            results.Should().Contain(dataResult);
         }
     }
 }
