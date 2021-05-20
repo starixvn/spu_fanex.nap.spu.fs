@@ -33,6 +33,8 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             services.AddControllers();
 
+            services.AddHealthChecks();
+
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "Fanex.NAP.SPU.FS.JobService", Version = "v1" });
@@ -42,7 +44,6 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             FanexDataConfig();
 
-            AddHealthCheckConnection(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -91,31 +92,6 @@ namespace Fanex.NAP.SPU.FS.JobService
               .WithSqlServer()
               .UseDefaultDbSettingProvider(resourcePath: "~/App_Data")
               .Run();                        
-        }
-
-        private void AddHealthCheckConnection(IServiceCollection services)
-        {
-            var healthCheck = services.AddHealthChecks();
-
-            Configuration
-                        .GetSection("Connections")
-                        .GetChildren()
-                        .ToList()
-                        .ForEach(
-                                x =>
-                                {
-                                    var aliasName = x.GetValue<string>("Name");
-                                    if (!string.IsNullOrWhiteSpace(aliasName))
-                                    {
-                                        var connection = DbSettingProviderManager.GetCurrentConnectionStringProvider().GetConnectionString(aliasName, false);
-
-                                        //healthCheck.AddCheck(aliasName, new SqlConnectionHealthCheck(connection), HealthStatus.Unhealthy, new[] { aliasName });
-                                        healthCheck.AddSqlServer(connection);
-                                    }
-                                }
-                        );
-
-
-        }
+        }        
     }
 }
