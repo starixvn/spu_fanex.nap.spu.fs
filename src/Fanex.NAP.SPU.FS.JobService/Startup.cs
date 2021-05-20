@@ -42,7 +42,7 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             services.RegisterService();
 
-            FanexDataConfig();
+            FanexDataConfig(appSettings);
 
         }
 
@@ -73,7 +73,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             });
         }
 
-        private void FanexDataConfig()
+        private void FanexDataConfig(IAppSettings appSettings)
         {
             var connections = Configuration
                                   .GetSection("Connections")
@@ -90,7 +90,7 @@ namespace Fanex.NAP.SPU.FS.JobService
               .StartNewSession()
               .Use(connections)
               .WithSqlServer()
-              .UseDefaultDbSettingProvider(resourcePath: "~/App_Data")
+              .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)
               .Run();                        
         }        
     }

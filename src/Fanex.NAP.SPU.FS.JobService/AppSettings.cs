@@ -9,6 +9,8 @@ namespace Fanex.NAP.SPU.FS.JobService
         int Environment { get; }
 
         string CustomerEvidenceAPI { get; }
+
+        string SPName { get; }
     }
     public class AppSettings : IAppSettings
     {
@@ -16,6 +18,7 @@ namespace Fanex.NAP.SPU.FS.JobService
 
         private readonly string environment;
         private readonly string customerEvidenceAPI;
+        private readonly string spName;
 
         public AppSettings(IConfiguration configuration)
         {
@@ -24,6 +27,8 @@ namespace Fanex.NAP.SPU.FS.JobService
             environment = GetValue<string>(nameof(Environment));
 
             customerEvidenceAPI = GetValue<string>(nameof(CustomerEvidenceAPI));
+
+            spName = GetValue<string>(nameof(SPName));
         }
 
         public int Environment
@@ -43,6 +48,8 @@ namespace Fanex.NAP.SPU.FS.JobService
         }
 
         public string CustomerEvidenceAPI => customerEvidenceAPI;
+
+        public string SPName => spName;
 
         public T GetValue<T>(string key)
         {
