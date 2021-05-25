@@ -33,7 +33,8 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             services.AddControllers();
 
-            services.AddHealthChecks();
+            services.AddHealthChecks()
+                .AddSqlServer("Data Source=10.40.40.94;Initial Catalog=bodb_FraudSensor;User Id=bodbSPUNet;password=@bodbSPUNet#");
 
             services.AddSwaggerGen(c =>
             {
@@ -90,7 +91,7 @@ namespace Fanex.NAP.SPU.FS.JobService
               .StartNewSession()
               .Use(connections)
               .WithSqlServer()
-              .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)
+              .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)              
               .Run();                        
         }        
     }
