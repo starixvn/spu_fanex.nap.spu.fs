@@ -56,7 +56,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         {
             var result = this.dailyDataCaptureServices.Rule();
 
-            if (result.ErrorCode != 0)
+            if (result.ErrorCode == -100)
             {
                 this.sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
             }

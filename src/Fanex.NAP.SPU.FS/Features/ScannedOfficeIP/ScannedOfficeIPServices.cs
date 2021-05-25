@@ -53,14 +53,20 @@ namespace Fanex.NAP.SPU.FS.Features.ScannedOfficeIP
                 var matchChunks = _matchList.Chunk(chunkSize);
 
                 foreach (var match in matchChunks)
-                {
-                    var matchIds = string.Join(",", match.Select(x => x.MatchId));
-
-                    var dataResult = scannedOfficeIPDataAccess.Rule(matchIds);
-
-                    if (dataResult.ErrorCode != 0)
+                {                    
+                    try
                     {
-                        dataResults.Add(dataResult);
+                        var matchIds = string.Join(",", match.Select(x => x.MatchId));
+
+                        scannedOfficeIPDataAccess.Rule(matchIds);
+                    }
+                    catch (Exception ex)
+                    {
+                        dataResults.Add(new DataResult
+                        {
+                            ErrorCode = -100,
+                            ErrorMessage = ex.Message
+                        });
                     }
                 }
             }

@@ -28,4 +28,14 @@
 		<Setting Key="FS_FraudCase_FlaggedAccount_PreCondition" SpName="FS_FraudCase_FlaggedAccount_PreCondition" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600"/>
 		<Setting Key="FS_FraudCase_FlaggedAccount_Rule" SpName="FS_FraudCase_FlaggedAccount_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600"/>
 	</Function>
+
+	<Function Name="OfficeIP">
+		<Setting Key="FS_FraudCase_OfficeIP_PreCondition"
+				 SpName="FS_FraudCase_OfficeIP_PreCondition"
+				 DbName="DBFS.bodb_FraudSensor.bodbSPUNet"/>
+
+		<Setting Key="FS_FraudCase_OfficeIP_Rule"
+			 SpName="FS_FraudCase_OfficeIP_Rule"
+			 DbName="DBFS.bodb_FraudSensor.bodbSPUNet"/>		
+	</Function>
 </Functions>
