@@ -51,7 +51,7 @@ namespace Fanex.NAP.SPU.FS.Features.DelayedGoal
             {
                 var dataResult = Execute(matches);
 
-                if (dataResult.ErrorCode != 0)
+                if (dataResult.ErrorCode == -100)
                 {
                     dataResults.Add(dataResult);
                 }

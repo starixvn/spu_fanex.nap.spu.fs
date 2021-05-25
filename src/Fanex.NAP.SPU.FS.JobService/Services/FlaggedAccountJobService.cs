@@ -65,7 +65,7 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
             {
                 foreach (var result in results.Distinct())
                 {
-                    if (result.ErrorCode != 0)
+                    if (result.ErrorCode == -100)
                     {
                         sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
                     }

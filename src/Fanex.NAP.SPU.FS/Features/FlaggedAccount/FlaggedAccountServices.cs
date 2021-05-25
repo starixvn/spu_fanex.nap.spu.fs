@@ -73,7 +73,7 @@ namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount
             {
                 var dataResult = Execute(matches);
 
-                if (dataResult.ErrorCode != 0)
+                if (dataResult.ErrorCode == -100)
                 {
                     dataResults.Add(dataResult);
                 }

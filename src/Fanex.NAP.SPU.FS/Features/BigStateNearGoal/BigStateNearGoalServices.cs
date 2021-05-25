@@ -54,7 +54,7 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
                 {
                     var dataResult = Execute(match);
 
-                    if(dataResult.ErrorCode != 0)
+                    if(dataResult.ErrorCode == -100)
                     {
                         dataResults.Add(dataResult);
                     }
