@@ -54,9 +54,9 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
 
         private void JobRun()
         {            
-            var result = this.checkbetService.Rule();
+            var result = this.checkbetService.Rule();                        
 
-            if (result.ErrorCode != 0)
+            if (result.ErrorCode == -100)
             {
                 this.sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
             }
