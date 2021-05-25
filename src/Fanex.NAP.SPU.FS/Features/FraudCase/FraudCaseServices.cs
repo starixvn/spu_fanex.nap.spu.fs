@@ -1,6 +1,4 @@
-﻿using Sentry;
-
-namespace Fanex.NAP.SPU.FS.Features.FraudCase
+﻿namespace Fanex.NAP.SPU.FS.Features.FraudCase
 {
     public interface IFraudCaseServices
     {
@@ -10,12 +8,10 @@ namespace Fanex.NAP.SPU.FS.Features.FraudCase
     public class FraudCaseServices : IFraudCaseServices
     {
         private readonly IFraudCaseDataAccess fraudCaseDataAccess;
-        private readonly ISentryClient sentryClient;
-
-        public FraudCaseServices(IFraudCaseDataAccess fraudCaseDataAccess, ISentryClient sentryClient)
+        
+        public FraudCaseServices(IFraudCaseDataAccess fraudCaseDataAccess)
         {
-            this.fraudCaseDataAccess = fraudCaseDataAccess;
-            this.sentryClient = sentryClient;
+            this.fraudCaseDataAccess = fraudCaseDataAccess;            
         }
 
         public bool CheckFraudCaseIsActive(int fraudCaseId, int environment)

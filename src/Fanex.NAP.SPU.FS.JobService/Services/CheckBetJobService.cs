@@ -34,12 +34,8 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         public Task<bool> Execute()
         {
             try
-            {
-                sentryClient.CaptureMessage($"fraudCaseId: {fraudCaseId} - Environment: {appSettings.Environment}");
-
+            {                
                 var isActiveFraudCase = fraudCaseService.CheckFraudCaseIsActive(fraudCaseId, appSettings.Environment);
-
-                sentryClient.CaptureMessage($"Check FraudCase successful");
 
                 if (isActiveFraudCase)
                 {
@@ -57,11 +53,8 @@ namespace Fanex.NAP.SPU.FS.JobService.Services
         }
 
         private void JobRun()
-        {
-            sentryClient.CaptureMessage($"Execute Rule");
-
+        {            
             var result = this.checkbetService.Rule();
-            
 
             if (result.ErrorCode != 0)
             {
