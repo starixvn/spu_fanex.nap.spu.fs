@@ -11,17 +11,17 @@
 	</Function>
 
 	<Function Name="CheckBetReport">
-		<Setting Key="FS_FraudCase_CheckBet_Rule" SpName="FS_FraudCase_CheckBet_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet"/>
+		<Setting Key="FS_FraudCase_CheckBet_Rule" SpName="FS_FraudCase_CheckBet_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600"/>
 	</Function>
 
 	<Function Name="DailyDataMonitoring">
-		<Setting Key="FS_FraudCase_DailyDataMonitoring_Rule" SpName="FS_FraudCase_DailyDataMonitoring_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" />
+		<Setting Key="FS_FraudCase_DailyDataMonitoring_Rule" SpName="FS_FraudCase_DailyDataMonitoring_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600" />
 	</Function>
 
 	<Function Name="DelayGoal">
-		<Setting Key="FS_FraudCase_DelayGoal_PreCondition" SpName="FS_FraudCase_DelayGoal_PreCondition" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" />
-		<Setting Key="FS_FraudCase_DelayGoal_Rule" SpName="FS_FraudCase_DelayGoal_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" />
-		<Setting Key="FS_DelayGoalAccount_GetManualAccount" SpName="FS_DelayGoalAccount_GetManualAccount" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" />
+		<Setting Key="FS_FraudCase_DelayGoal_PreCondition" SpName="FS_FraudCase_DelayGoal_PreCondition" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600" />
+		<Setting Key="FS_FraudCase_DelayGoal_Rule" SpName="FS_FraudCase_DelayGoal_Rule" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600" />
+		<Setting Key="FS_DelayGoalAccount_GetManualAccount" SpName="FS_DelayGoalAccount_GetManualAccount" DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600" />
 	</Function>
 
 	<Function Name="FlaggedAccount">
@@ -32,10 +32,10 @@
 	<Function Name="OfficeIP">
 		<Setting Key="FS_FraudCase_OfficeIP_PreCondition"
 				 SpName="FS_FraudCase_OfficeIP_PreCondition"
-				 DbName="DBFS.bodb_FraudSensor.bodbSPUNet"/>
+			 DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600"/>
 
 		<Setting Key="FS_FraudCase_OfficeIP_Rule"
 			 SpName="FS_FraudCase_OfficeIP_Rule"
-			 DbName="DBFS.bodb_FraudSensor.bodbSPUNet"/>
+		 DbName="DBFS.bodb_FraudSensor.bodbSPUNet" TimeOut="600"/>
 	</Function>
 </Functions>
