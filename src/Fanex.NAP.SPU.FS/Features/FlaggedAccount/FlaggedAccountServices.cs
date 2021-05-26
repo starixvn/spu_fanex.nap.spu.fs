@@ -25,8 +25,7 @@ namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount
         }
 
         public override BaseService GetFlaggedCustomer(string apiUrl)
-        {
-            
+        {            
             var client = new RestClient(new Uri(apiUrl));
             client.Timeout = -1;
             var request = new RestRequest(Method.POST);
