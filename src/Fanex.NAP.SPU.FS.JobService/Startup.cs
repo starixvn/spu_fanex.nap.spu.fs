@@ -1,5 +1,7 @@
 using Fanex.Data;
 using Fanex.Data.SqlServer;
+using Fanex.Logging;
+using Fanex.Logging.Sentry;
 using Fanex.NAP.SPU.FS.JobService.Services;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Builder;
@@ -9,6 +11,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using Sentry;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Fanex.NAP.SPU.FS.JobService
@@ -39,6 +43,8 @@ namespace Fanex.NAP.SPU.FS.JobService
             });
 
             services.RegisterService();
+
+            RegisterLogging(appSettings);
 
             FanexDataConfig(appSettings);
 
@@ -90,6 +96,19 @@ namespace Fanex.NAP.SPU.FS.JobService
               .WithSqlServer()
               .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)              
               .Run();                        
-        }        
+        }
+
+        private void RegisterLogging(IAppSettings appSettings)
+        {
+            LogManager
+                .SetDefaultLogCategory("")
+                .Use(new List<ILogEngine>
+                {
+                     new SentryLogging(new SentryEngineOptions {
+                        Dsn = new Dsn(appSettings.SentryDsn),
+                        Environment = "DEV"
+                     })
+                });
+        }
     }
 }

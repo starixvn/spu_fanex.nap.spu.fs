@@ -11,6 +11,8 @@ namespace Fanex.NAP.SPU.FS.JobService
         string CustomerEvidenceAPI { get; }
 
         string SPName { get; }
+
+        string SentryDsn { get; }
     }
     public class AppSettings : IAppSettings
     {
@@ -19,6 +21,7 @@ namespace Fanex.NAP.SPU.FS.JobService
         private readonly string environment;
         private readonly string customerEvidenceAPI;
         private readonly string spName;
+        private readonly string sentryDsn;
 
         public AppSettings(IConfiguration configuration)
         {
@@ -29,6 +32,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             customerEvidenceAPI = GetValue<string>(nameof(CustomerEvidenceAPI));
 
             spName = GetValue<string>(nameof(SPName));
+            sentryDsn = GetValue<string>("Sentry:Dsn");
         }
 
         public int Environment
@@ -73,5 +77,7 @@ namespace Fanex.NAP.SPU.FS.JobService
 
             return schedulerSection.Get<T>();
         }
+
+        public string SentryDsn => sentryDsn;
     }
 }
