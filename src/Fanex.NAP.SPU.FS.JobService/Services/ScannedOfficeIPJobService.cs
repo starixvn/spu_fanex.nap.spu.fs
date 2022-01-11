@@ -1,11 +1,11 @@
-﻿using Fanex.NAP.SPU.FS.Features.FraudCase;
-using Fanex.NAP.SPU.FS.Features.ScannedOfficeIP;
-using Sentry;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.JobService.Services
+﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.NAP.SPU.FS.Features.FraudCase;
+    using Fanex.NAP.SPU.FS.Features.ScannedOfficeIP;
+    using Sentry;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public interface IScannedOfficeIPJobService
     {
         Task<bool> Execute(int chunkSize);

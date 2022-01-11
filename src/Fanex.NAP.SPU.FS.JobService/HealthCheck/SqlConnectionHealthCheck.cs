@@ -1,14 +1,14 @@
-﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
-using System;
-using System.Collections.Generic;
-using System.Data.Common;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Threading;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.JobService.HealthCheck
+﻿namespace Fanex.NAP.SPU.FS.JobService.HealthCheck
 {
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using System;
+    using System.Collections.Generic;
+    using System.Data.Common;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Threading;
+    using System.Threading.Tasks;
+
     public class SqlConnectionHealthCheck : IHealthCheck
     {
         private static readonly string DefaultTestQuery = "Select 1";

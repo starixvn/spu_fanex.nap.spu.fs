@@ -1,11 +1,11 @@
-﻿using Fanex.NAP.SPU.FS.JobService.Services;
-using Microsoft.AspNetCore.Mvc;
-using Sentry;
-using System;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.JobService.Controllers
+﻿namespace Fanex.NAP.SPU.FS.JobService.Controllers
 {
+    using Fanex.NAP.SPU.FS.JobService.Services;
+    using Microsoft.AspNetCore.Mvc;
+    using Sentry;
+    using System;
+    using System.Threading.Tasks;
+
     [ApiController]
     [Route("api/job")]
     public class JobController : ControllerBase

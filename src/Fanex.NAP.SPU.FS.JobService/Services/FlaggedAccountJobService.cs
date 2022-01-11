@@ -1,12 +1,11 @@
-﻿using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
-using Fanex.NAP.SPU.FS.Features.FraudCase;
-using Sentry;
-using System;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.JobService.Services
+﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
+    using Fanex.NAP.SPU.FS.Features.FraudCase;
+    using Sentry;
+    using System.Linq;
+    using System.Threading.Tasks;
+
     public interface IFlaggedAccountJobService
     {
         Task<bool> Execute(int chunkSize);

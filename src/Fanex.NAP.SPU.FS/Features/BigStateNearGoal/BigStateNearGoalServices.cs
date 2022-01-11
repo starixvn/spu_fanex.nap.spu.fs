@@ -63,6 +63,7 @@ namespace Fanex.NAP.SPU.FS.Features.BigStateNearGoal
 
             Thread.Sleep(TimeSpan.FromSeconds(waitingTimeInSecond));
 
+            _matchList = null;
             return dataResults;
         }
        

@@ -78,6 +78,8 @@ namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount
                 }
             }
 
+            _flaggedCustomerList = null;
+            _matchList = null;
             return dataResults;
         }
 

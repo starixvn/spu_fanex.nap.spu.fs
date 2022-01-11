@@ -1,10 +1,10 @@
-﻿using Fanex.NAP.SPU.FS.Features.CheckBet;
-using Fanex.NAP.SPU.FS.Features.FraudCase;
-using Sentry;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.JobService.Services
+﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.NAP.SPU.FS.Features.CheckBet;
+    using Fanex.NAP.SPU.FS.Features.FraudCase;
+    using Sentry;
+    using System.Threading.Tasks;
+
     public interface ICheckBetJobService
     {
         Task<bool> Execute();

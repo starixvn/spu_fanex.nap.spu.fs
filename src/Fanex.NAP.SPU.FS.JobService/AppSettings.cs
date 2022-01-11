@@ -1,9 +1,9 @@
-﻿using Microsoft.Extensions.Configuration;
-using System;
-using System.ComponentModel;
-
-namespace Fanex.NAP.SPU.FS.JobService
+﻿namespace Fanex.NAP.SPU.FS.JobService
 {
+    using Microsoft.Extensions.Configuration;
+    using System;
+    using System.ComponentModel;
+
     public interface IAppSettings
     {
         int Environment { get; }
