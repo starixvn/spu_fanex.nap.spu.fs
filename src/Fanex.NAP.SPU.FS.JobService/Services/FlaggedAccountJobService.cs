@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.Logging;
     using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
-    using Sentry;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -13,20 +13,17 @@
 
     public class FlaggedAccountJobService : IFlaggedAccountJobService
     {
-        private readonly ISentryClient sentryClient;
         private readonly FlaggedAccountServices flaggedAccountServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
         private readonly int fraudCaseId = 6;
 
         public FlaggedAccountJobService(
-            ISentryClient sentryClient,
             IAppSettings appSettings,
             IFraudCaseServices fraudCaseService,
             FlaggedAccountServices flaggedAccountServices)
         {
             this.flaggedAccountServices = flaggedAccountServices;
-            this.sentryClient = sentryClient;
             this.fraudCaseService = fraudCaseService;
             this.appSettings = appSettings;
         }
@@ -44,7 +41,7 @@
             }
             catch (System.Exception ex)
             {
-                sentryClient.CaptureException(ex);
+                LogService.Error($"Error in {nameof(FlaggedAccountJobService)}: {ex.Message}", ex);
 
                 return Task.FromResult(false);
             }
@@ -66,7 +63,7 @@
                 {
                     if (result.ErrorCode == -100)
                     {
-                        sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                        LogService.Error(result.ErrorMessage);
                     }
                 }
             }

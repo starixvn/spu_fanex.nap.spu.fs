@@ -25,19 +25,22 @@ namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount
         }
 
         public override BaseService GetFlaggedCustomer(string apiUrl)
-        {            
-            var client = new RestClient(new Uri(apiUrl));
-            client.Timeout = -1;
-            var request = new RestRequest(Method.POST);
-
-            request.AddHeader("Content-Type", "application/json");
-            request.AddParameter("application/json", "{CustIdList: null,EvidenceCodeList: null}", ParameterType.RequestBody);
-
-            var response = client.Execute(request);
-
-            if (!string.IsNullOrWhiteSpace(response.Content))
+        {
+            if (!string.IsNullOrWhiteSpace(apiUrl))
             {
-                _flaggedCustomerList = JsonConvert.DeserializeObject<List<FlaggedCustomerEntity>>(response.Content);
+                var client = new RestClient(new Uri(apiUrl));
+                client.Timeout = -1;
+                var request = new RestRequest(Method.POST);
+
+                request.AddHeader("Content-Type", "application/json");
+                request.AddParameter("application/json", "{CustIdList: null,EvidenceCodeList: null}", ParameterType.RequestBody);
+
+                var response = client.Execute(request);
+
+                if (!string.IsNullOrWhiteSpace(response.Content))
+                {
+                    _flaggedCustomerList = JsonConvert.DeserializeObject<List<FlaggedCustomerEntity>>(response.Content);
+                }
             }
 
             return this;

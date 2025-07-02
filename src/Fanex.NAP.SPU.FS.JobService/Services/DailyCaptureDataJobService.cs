@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.Logging;
     using Fanex.NAP.SPU.FS.Features.DailyDataCapture;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
-    using Sentry;
     using System.Threading.Tasks;
 
     public interface IDailyCaptureDataJobService
@@ -12,20 +12,17 @@
 
     public class DailyCaptureDataJobService: IDailyCaptureDataJobService
     {
-        private readonly ISentryClient sentryClient;
         private readonly DailyDataCaptureServices dailyDataCaptureServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
         private readonly int fraudCaseId = 4;
 
         public DailyCaptureDataJobService(
-            ISentryClient sentryClient,
             IAppSettings appSettings,
             IFraudCaseServices fraudCaseService,
             DailyDataCaptureServices dailyDataCaptureServices)
         {
             this.dailyDataCaptureServices = dailyDataCaptureServices;
-            this.sentryClient = sentryClient;
             this.fraudCaseService = fraudCaseService;
             this.appSettings = appSettings;
         }
@@ -43,7 +40,7 @@
             }
             catch (System.Exception ex)
             {
-                sentryClient.CaptureException(ex);
+                LogService.Error($"Error in {nameof(DailyCaptureDataJobService)}: {ex.Message}", ex);
 
                 return Task.FromResult(false);
             }
@@ -58,7 +55,7 @@
 
             if (result.ErrorCode == -100)
             {
-                this.sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                LogService.Error(result.ErrorMessage);
             }
         }
     }

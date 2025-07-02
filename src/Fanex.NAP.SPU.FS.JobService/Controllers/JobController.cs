@@ -2,15 +2,12 @@
 {
     using Fanex.NAP.SPU.FS.JobService.Services;
     using Microsoft.AspNetCore.Mvc;
-    using Sentry;
-    using System;
     using System.Threading.Tasks;
 
     [ApiController]
     [Route("api/job")]
     public class JobController : ControllerBase
     {
-        private readonly ISentryClient sentryClient;
         private readonly IBigStateNearGoalJobService bigStateNearGoalJobService;
         private readonly ICheckBetJobService checkBetJobService;
         private readonly IDelayedGoalJobService delayedGoalJobService;
@@ -19,7 +16,7 @@
         private readonly IScannedOfficeIPJobService scannedOfficeIpJobService;
         private readonly int chunkSize = 100;
 
-        public JobController(ISentryClient sentryClient,
+        public JobController(
             IBigStateNearGoalJobService bigStateNearGoalJobService,
             ICheckBetJobService checkBetJobService,
             IDelayedGoalJobService delayedGoalJobService,
@@ -27,7 +24,6 @@
             IDailyCaptureDataJobService dailyCaptureDataJobService,
             IScannedOfficeIPJobService scannedOfficeIpJobService)
         {
-            this.sentryClient = sentryClient;
             this.bigStateNearGoalJobService = bigStateNearGoalJobService;
             this.checkBetJobService = checkBetJobService;
             this.delayedGoalJobService = delayedGoalJobService;

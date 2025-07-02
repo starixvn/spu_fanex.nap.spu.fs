@@ -1,10 +1,8 @@
 ﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.Logging;
     using Fanex.NAP.SPU.FS.Features.DelayedGoal;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
-    using Sentry;
-    using System;
-    using System.Collections.Generic;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -16,20 +14,17 @@
     public class DelayedGoalJobService : IDelayedGoalJobService
     {
 
-        private readonly ISentryClient sentryClient;
         private readonly DelayedGoalServices delayedGoalServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
         private readonly int fraudCaseId = 8;
 
         public DelayedGoalJobService(
-            ISentryClient sentryClient,
             IAppSettings appSettings,
             IFraudCaseServices fraudCaseService,
             DelayedGoalServices delayedGoalServices)
         {
             this.delayedGoalServices = delayedGoalServices;
-            this.sentryClient = sentryClient;
             this.fraudCaseService = fraudCaseService;
             this.appSettings = appSettings;
         }
@@ -47,7 +42,7 @@
             }
             catch (System.Exception ex)
             {
-                sentryClient.CaptureException(ex);
+                LogService.Error($"Error in {nameof(DelayedGoalJobService)}: {ex.Message}", ex);
 
                 return Task.FromResult(false);
             }
@@ -68,7 +63,7 @@
                 {
                     if (result.ErrorCode == -100)
                     {
-                        sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                        LogService.Error(result.ErrorMessage);
                     }
                 }
             }
