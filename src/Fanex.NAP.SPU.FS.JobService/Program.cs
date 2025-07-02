@@ -14,6 +14,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             {
                 var host = CreateHostBuilder(args).Build();
                 LogService.Info(string.Format("{0} has been started at {1}", typeof(Program).FullName, DateTime.Now));
+                LogService.Error(string.Format("{0} has been started at {1}", typeof(Program).FullName, DateTime.Now));
                 host.Run();
             }
             catch (Exception ex)
