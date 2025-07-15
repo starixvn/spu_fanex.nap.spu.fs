@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.Logging;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
     using Fanex.NAP.SPU.FS.Features.ScannedOfficeIP;
-    using Sentry;
     using System.Linq;
     using System.Threading.Tasks;
 
@@ -13,20 +13,17 @@
 
     public class ScannedOfficeIPJobService: IScannedOfficeIPJobService
     {
-        private readonly ISentryClient sentryClient;
         private readonly ScannedOfficeIPServices scannedOfficeIPServices;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
         private readonly int fraudCaseId = 2;
 
         public ScannedOfficeIPJobService(
-            ISentryClient sentryClient,
             IAppSettings appSettings,
             IFraudCaseServices fraudCaseService,
             ScannedOfficeIPServices scannedOfficeIPServices)
         {
             this.scannedOfficeIPServices = scannedOfficeIPServices;
-            this.sentryClient = sentryClient;
             this.fraudCaseService = fraudCaseService;
             this.appSettings = appSettings;
         }
@@ -44,7 +41,7 @@
             }
             catch (System.Exception ex)
             {
-                sentryClient.CaptureException(ex);
+                LogService.Error($"Error in {nameof(ScannedOfficeIPJobService)}: {ex.Message}", ex);
 
                 return Task.FromResult(false);
             }
@@ -64,7 +61,7 @@
                 {
                     if (result.ErrorCode == -100)
                     {
-                        sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                        LogService.Error(result.ErrorMessage);
                     }
                 }
             }

@@ -3,7 +3,7 @@ namespace Fanex.NAP.SPU.FS.JobService
     using Fanex.Data;
     using Fanex.Data.SqlServer;
     using Fanex.Logging;
-    using Fanex.Logging.Sentry;
+    using Fanex.Logging.Sentry.RavenClient;
     using Fanex.NAP.SPU.FS.JobService.Services;
     using HealthChecks.UI.Client;
     using Microsoft.AspNetCore.Builder;
@@ -13,9 +13,7 @@ namespace Fanex.NAP.SPU.FS.JobService
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
     using Microsoft.OpenApi.Models;
-    using Sentry;
     using System.Collections.Generic;
-    using System.Linq;
 
     public class Startup
     {
@@ -31,6 +29,8 @@ namespace Fanex.NAP.SPU.FS.JobService
         {
             var appSettings = new AppSettings(this.Configuration);
 
+            services.AddFanexLogSentry(Configuration);
+
             services.AddSingleton<IAppSettings>(appSettings);
 
             services.AddControllers();
@@ -43,8 +43,6 @@ namespace Fanex.NAP.SPU.FS.JobService
             });
 
             services.RegisterService();
-
-            RegisterLogging(appSettings);
 
             FanexDataConfig(appSettings);
 
@@ -79,36 +77,11 @@ namespace Fanex.NAP.SPU.FS.JobService
 
         private void FanexDataConfig(IAppSettings appSettings)
         {
-            var connections = Configuration
-                                  .GetSection("Connections")
-                                  .GetChildren()
-                                  .AsEnumerable()
-                                  .ToDictionary(
-                                           x => x.GetValue<string>("Name"),
-                                           y => new ConnectionConfiguration(y.GetValue<string>("Name"), y.GetValue<string>("ConnectionString"), y.GetValue<string>("ProviderName"))
-                                   );
-
-
-
             DbSettingProviderManager
               .StartNewSession()
-              .Use(connections)
-              .WithSqlServer()
+              .WithSqlServer(Configuration)
               .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)              
               .Run();                        
-        }
-
-        private void RegisterLogging(IAppSettings appSettings)
-        {
-            LogManager
-                .SetDefaultLogCategory("")
-                .Use(new List<ILogEngine>
-                {
-                     new SentryLogging(new SentryEngineOptions {
-                        Dsn = new Dsn(appSettings.SentryDsn),
-                        Environment = "DEV"
-                     })
-                });
         }
     }
 }

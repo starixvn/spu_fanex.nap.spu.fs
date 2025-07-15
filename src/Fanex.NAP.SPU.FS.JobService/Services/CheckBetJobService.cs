@@ -1,8 +1,8 @@
 ﻿namespace Fanex.NAP.SPU.FS.JobService.Services
 {
+    using Fanex.Logging;
     using Fanex.NAP.SPU.FS.Features.CheckBet;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
-    using Sentry;
     using System.Threading.Tasks;
 
     public interface ICheckBetJobService
@@ -12,7 +12,6 @@
 
     public class CheckBetJobService: ICheckBetJobService
     {
-        private readonly ISentryClient sentryClient;
         private readonly IFraudCaseServices fraudCaseService;
         private readonly IAppSettings appSettings;
 
@@ -20,12 +19,10 @@
         private readonly int fraudCaseId = 3;
 
         public CheckBetJobService(
-            ISentryClient sentryClient,
             IAppSettings appSettings,
             IFraudCaseServices fraudCaseService,
             CheckBetServices checkbetService)
         {
-            this.sentryClient = sentryClient;
             this.checkbetService = checkbetService;
             this.fraudCaseService = fraudCaseService;
             this.appSettings = appSettings;
@@ -44,7 +41,7 @@
             }
             catch (System.Exception ex)
             {
-                sentryClient.CaptureException(ex);
+                LogService.Error($"Error in {nameof(CheckBetJobService)}: {ex.Message}", ex);
 
                 return Task.FromResult(false);
             }
@@ -58,7 +55,7 @@
 
             if (result.ErrorCode == -100)
             {
-                this.sentryClient.CaptureMessage(result.ErrorMessage, Sentry.Protocol.SentryLevel.Error);
+                LogService.Error(result.ErrorMessage);
             }
         }
     }
