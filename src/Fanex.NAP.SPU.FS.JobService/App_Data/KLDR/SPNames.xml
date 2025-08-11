@@ -40,6 +40,6 @@
 	</Function>
   
   <Function Name="WriteLog">
-    <Setting Key="CTS_DC_WriteLog_Insert" SpName="CTS_DC_WriteLog_Insert" DbName="CTSMain.CTS_DataCenter.ctsServiceAdmin" />
+    <Setting Key="CTS_DC_LogFanexApiDuration" SpName="CTS_DC_LogFanexApiDuration" DbName="CTSMain.CTS_DataCenter.ctsServiceAdmin" />
   </Function>
 </Functions>

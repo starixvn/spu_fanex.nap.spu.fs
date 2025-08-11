@@ -2,8 +2,14 @@
 {
     public class LogInsertModel
     {
-        public string Function { get; set; }
+        public string UID { get; set; }
 
-        public int Duration { get; set; }
+        public string FunctionName { get; set; }
+
+        public string ServiceName { get; set; }
+
+        public long DurationFanexApi { get; set; }
+
+        public bool IsSuccess { get; set; }
     }
 }

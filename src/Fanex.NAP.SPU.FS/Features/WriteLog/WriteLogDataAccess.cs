@@ -21,8 +21,11 @@
         {
             var criteria = new WriteLogCriteria
             {
-                Funtion = logInsert.Function,
-                Duration = logInsert.Duration
+                UID = logInsert.UID,
+                FunctionName = logInsert.FunctionName,
+                ServiceName = logInsert.ServiceName,
+                DurationFanexApi = logInsert.DurationFanexApi,
+                IsSuccess = logInsert.IsSuccess
             };
 
             _repository.Execute(criteria);
