@@ -1,6 +1,7 @@
 namespace Fanex.NAP.SPU.FS.JobService
 {
     using Fanex.Data;
+    using Fanex.Data.MySql;
     using Fanex.Data.SqlServer;
     using Fanex.Logging;
     using Fanex.Logging.Sentry.RavenClient;
@@ -78,10 +79,11 @@ namespace Fanex.NAP.SPU.FS.JobService
         private void FanexDataConfig(IAppSettings appSettings)
         {
             DbSettingProviderManager
-              .StartNewSession()
-              .WithSqlServer(Configuration)
-              .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)              
-              .Run();                        
+                 .StartNewSession()
+                 .WithSqlServer(Configuration)
+                 .WithMySql(Configuration)
+                 .UseDefaultDbSettingProvider(resourcePath: appSettings.SPName)
+                 .Run();
         }
     }
 }

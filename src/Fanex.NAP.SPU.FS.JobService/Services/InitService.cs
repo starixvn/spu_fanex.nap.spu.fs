@@ -7,6 +7,7 @@
     using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
     using Fanex.NAP.SPU.FS.Features.ScannedOfficeIP;
+    using Fanex.NAP.SPU.FS.Features.WriteLog;
     using Fanex.NAP.SPU.FS.Shares;
     using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,14 @@
             RegisterFlaggedAccountService(services);
             RegisterDailyCaptureService(services);
             RegisterScannedOfficeIpService(services);
+            RegisterWriteLog(services);
+        }
+
+        private static void RegisterWriteLog(this IServiceCollection services)
+        {
+            services.AddSingleton<IWriteLogDataAccess, WriteLogDataAccess>();
+            services.AddSingleton<IWriteLogService, WriteLogService>();
+            services.AddSingleton<IWriteLogJobService, WriteLogJobService>();
         }
 
         private static void RegisterBigStateNearGoalService(this IServiceCollection services)

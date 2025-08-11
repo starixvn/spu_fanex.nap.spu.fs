@@ -38,4 +38,8 @@
 			 SpName="FS_FraudCase_OfficeIP_Rule"
 			 DbName="DBFS.bodb_FraudSensor.wsv_cts"/>		
 	</Function>
+
+  <Function Name="WriteLog">
+    <Setting Key="CTS_DC_WriteLog_Insert" SpName="CTS_DC_WriteLog_Insert" DbName="CTSMain.CTS_DataCenter.ctsServiceAdmin" />
+  </Function>
 </Functions>
