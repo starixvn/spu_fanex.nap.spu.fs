@@ -73,6 +73,7 @@ namespace Fanex.NAP.SPU.FS.JobService
             {
                 endpoints.MapControllers();
             });
+
         }
 
         private void FanexDataConfig(IAppSettings appSettings)
