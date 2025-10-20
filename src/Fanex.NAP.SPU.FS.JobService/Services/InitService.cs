@@ -7,7 +7,6 @@
     using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
     using Fanex.NAP.SPU.FS.Features.FraudCase;
     using Fanex.NAP.SPU.FS.Features.ScannedOfficeIP;
-    using Fanex.NAP.SPU.FS.Shares;
     using Microsoft.Extensions.DependencyInjection;
 
     public static class InitService

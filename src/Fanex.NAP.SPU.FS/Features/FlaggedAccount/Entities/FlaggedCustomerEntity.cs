@@ -1,13 +1,8 @@
-﻿using Fanex.NAP.SPU.FS.Shares;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Xml.Serialization;
-
-namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount.Entities
+﻿namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount.Entities
 {
+    using Fanex.NAP.SPU.FS.Shares;  
+    using System.Xml.Serialization;
+
     [XName("CustomerEvidence")]
     public class FlaggedCustomerEntity
     {

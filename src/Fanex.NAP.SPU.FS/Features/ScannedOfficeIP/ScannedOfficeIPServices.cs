@@ -1,15 +1,12 @@
-﻿using Fanex.NAP.SPU.FS.Features.FlaggedAccount;
-using Fanex.NAP.SPU.FS.Shares;
-using Fanex.NAP.SPU.FS.Shares.Entities;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading;
-using System.Threading.Tasks;
+﻿namespace Fanex.NAP.SPU.FS.Features.ScannedOfficeIP
+{    
+    using Fanex.NAP.SPU.FS.Shares;
+    using Fanex.NAP.SPU.FS.Shares.Entities;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;    
+    using System.Threading;
 
-namespace Fanex.NAP.SPU.FS.Features.ScannedOfficeIP
-{
     public class ScannedOfficeIPServices : BaseService
     {
         private readonly IScannedOfficeIPDataAccess scannedOfficeIPDataAccess;

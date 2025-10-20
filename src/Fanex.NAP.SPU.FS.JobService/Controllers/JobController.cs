@@ -34,49 +34,37 @@
 
         [HttpPost("bigstateneargoal")]
         public async Task<bool> BigStateNearGoal(string jobName)
-        {
-            //sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
-
+        {           
             return await this.bigStateNearGoalJobService.Execute();
         }
 
         [HttpPost("checkbet")]
         public async Task<bool> CheckBet(string jobName)
-        {
-            //sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
-
+        {           
             return await this.checkBetJobService.Execute();
         }
 
         [HttpPost("delayedgoal")]
         public async Task<bool> DelayedGoal(string jobName)
-        {
-            //sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
-
+        {           
             return await this.delayedGoalJobService.Execute(chunkSize);
         }
 
         [HttpPost("flaggedaccount")]
         public async Task<bool> FlaggedAccount(string jobName)
-        {
-            ///sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
-
+        {           
             return await this.flaggedAccountJobService.Execute(chunkSize);
         }
 
         [HttpPost("dailycapturedata")]
         public async Task<bool> DailyCaptureData(string jobName)
-        {
-            //sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
-
+        {           
             return await this.dailyCaptureDataJobService.Execute();
         }
 
         [HttpPost("scannedofficeip")]
         public async Task<bool> ScannedOfficeIp(string jobName)
-        {
-            //sentryClient.CaptureMessage($"{jobName} is running at {DateTime.Now}");
-
+        {           
             return await this.scannedOfficeIpJobService.Execute(chunkSize);
         }
     }

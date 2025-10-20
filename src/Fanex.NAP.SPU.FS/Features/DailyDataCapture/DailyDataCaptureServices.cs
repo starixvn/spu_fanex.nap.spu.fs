@@ -1,16 +1,12 @@
-﻿using Fanex.Logging.Extensions;
-using Fanex.Logging.Extensions.Database;
-using Fanex.NAP.SPU.FS.Shares;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.Features.DailyDataCapture
+﻿namespace Fanex.NAP.SPU.FS.Features.DailyDataCapture
 {
-   
-   public class DailyDataCaptureServices: BaseService
+    using Fanex.Logging.Extensions;
+    using Fanex.Logging.Extensions.Database;
+    using Fanex.NAP.SPU.FS.Shares;
+    using System;
+
+
+    public class DailyDataCaptureServices: BaseService
     {
         private readonly IDailyDataCaptureDataAccess dailyDataCaptureDataAccess;
 

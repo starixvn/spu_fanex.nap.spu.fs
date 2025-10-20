@@ -13,13 +13,13 @@ namespace Fanex.NAP.SPU.FS.JobService
             try
             {
                 var host = CreateHostBuilder(args).Build();
-                LogService.Info(string.Format("{0} has been started at {1}", typeof(Program).FullName, DateTime.Now));
-                LogService.Error(string.Format("{0} has been started at {1}", typeof(Program).FullName, DateTime.Now));
+                LogService.Info(string.Format("{0} has been started at {1}", typeof(Program).FullName, DateTimeOffset.Now));
+                LogService.Error(string.Format("{0} has been started at {1}", typeof(Program).FullName, DateTimeOffset.Now));
                 host.Run();
             }
             catch (Exception ex)
             {
-                LogService.Error(string.Format("{0} has been started at {1} fail", typeof(Program).FullName, DateTime.Now), ex);
+                LogService.Error(string.Format("{0} has been started at {1} fail", typeof(Program).FullName, DateTimeOffset.Now), ex);
             }
         }
 

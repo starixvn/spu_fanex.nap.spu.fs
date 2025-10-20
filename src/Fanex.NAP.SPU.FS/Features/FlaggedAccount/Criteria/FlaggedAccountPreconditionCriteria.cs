@@ -1,12 +1,7 @@
-﻿using Fanex.Data.Repository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount.Criteria
+﻿namespace Fanex.NAP.SPU.FS.Features.FlaggedAccount.Criteria
 {
+    using Fanex.Data.Repository;
+
     public class FlaggedAccountPreconditionCriteria : CriteriaBase
     {
         public override string GetSettingKey()

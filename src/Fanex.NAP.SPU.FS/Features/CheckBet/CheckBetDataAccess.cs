@@ -1,14 +1,9 @@
-﻿using Fanex.Data.Repository;
-using Fanex.NAP.SPU.FS.Features.CheckBet.Criteria;
-using Fanex.NAP.SPU.FS.Shares;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Fanex.NAP.SPU.FS.Features.CheckBet
+﻿namespace Fanex.NAP.SPU.FS.Features.CheckBet
 {
+    using Fanex.Data.Repository;
+    using Fanex.NAP.SPU.FS.Features.CheckBet.Criteria;
+    using Fanex.NAP.SPU.FS.Shares;
+
     public interface ICheckBetDataAccess
     {
         DataResult Rule();
